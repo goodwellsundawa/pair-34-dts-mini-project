@@ -106,13 +106,13 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
         </Button>
 
         {loginOrRegister === "login" ? (
-          <Link to="/register">
-            <Typography variant="body1">or do you want Register ?</Typography>
-          </Link>
+          <Typography variant="body1">
+            Not a member? <Link to="/register">Register</Link>
+          </Typography>
         ) : (
-          <Link to="/login">
-            <Typography variant="body1">or do you want Login ?</Typography>
-          </Link>
+          <Typography variant="body1">
+            Already have an account? <Link to="/login">Login</Link>
+          </Typography>
         )}
       </Box>
     </Grid>
