@@ -29,13 +29,14 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
   });
 
   useEffect(() => {
-    if (isLoading) {
-      return;
-    }
     if (user) {
       navigate("/home");
     }
-  }, [isLoading, user, navigate]);
+  }, [user, navigate]);
+
+  if (isLoading) {
+    return;
+  }
 
   const textFieldEmailOnChangeHandler = (event) => {
     setCredential({
