@@ -114,7 +114,7 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
 
         {loginOrRegister === "login" ? (
           <Typography variant="body1">
-            Not a member? <Link to="/register">Register</Link>
+            Dont have an account yet? <Link to="/register">Register</Link>
           </Typography>
         ) : (
           <Typography variant="body1">
