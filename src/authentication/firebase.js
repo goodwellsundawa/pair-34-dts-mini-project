@@ -6,6 +6,8 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -19,6 +21,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const googleAP = new GoogleAuthProvider();
 
 const registerDenganEmailDanPassword = async (email, password) => {
   try {
@@ -73,10 +76,20 @@ const keluarDariApps = async () => {
   }
 };
 
+const loginWithGoogle = async () => {
+  try {
+    const response = await signInWithPopup(auth, googleAP);
+    console.log("User yang berhasil login adalah", response.user);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export {
   auth,
   registerDenganEmailDanPassword,
   loginDenganEmailDanPassword,
   resetPassword,
   keluarDariApps,
+  loginWithGoogle,
 };

@@ -33,9 +33,18 @@ const NavBar = () => {
             Movie Apps
           </Typography>
 
+          {user ? (
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Welcome, user {user.email}
+            </Typography>
+          ) : (
+            ""
+          )}
+
           <Button color="inherit" onClick={buttonHomeOnClickHandler}>
             Home
           </Button>
+
           {user ? (
             <Button color="inherit" onClick={buttonLogoutOnClickHandler}>
               Logout

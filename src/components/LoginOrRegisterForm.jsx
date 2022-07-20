@@ -11,9 +11,12 @@ import {
   auth,
   loginDenganEmailDanPassword,
   registerDenganEmailDanPassword,
+  loginWithGoogle,
 } from "../authentication/firebase";
 
 import { useAuthState } from "react-firebase-hooks/auth";
+
+import GoogleButton from "react-google-button";
 
 const LoginOrRegisterForm = ({ loginOrRegister }) => {
   const navigate = useNavigate();
@@ -26,14 +29,13 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
   });
 
   useEffect(() => {
+    if (isLoading) {
+      return;
+    }
     if (user) {
       navigate("/home");
     }
-  }, [user, navigate]);
-
-  if (isLoading) {
-    return;
-  }
+  }, [isLoading, user, navigate]);
 
   const textFieldEmailOnChangeHandler = (event) => {
     setCredential({
@@ -63,6 +65,10 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
     } else {
       registerHandler();
     }
+  };
+
+  const loginGoogleHandler = async () => {
+    await loginWithGoogle();
   };
 
   return (
@@ -115,6 +121,7 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
           </Typography>
         )}
       </Box>
+      <GoogleButton onClick={loginGoogleHandler} />
     </Grid>
   );
 };

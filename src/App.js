@@ -15,6 +15,14 @@ function App() {
     <div className="App">
       <NavBar />
       <Routes>
+        <Route
+          path="*"
+          element={
+            <main>
+              <h3>404 - Page not found !</h3>
+            </main>
+          }
+        />
         <Route path="/" element={<HomePage />} />
         <Route path="home" element={<HomePage />} />
         <Route path="login" element={<LoginPage />} />
@@ -27,14 +35,15 @@ function App() {
             </ProtectedComponent>
           }
         />
-        <Route
-          path="*"
+        {/* <Route path="detail_movie/:idMovie" element={<DetailMovie />} /> */}
+        {/* <Route
+          path="detail_movie/:idMovie"
           element={
-            <main>
-              <h3>404 - Page not found !</h3>
-            </main>
+            <ProtectedComponent>
+              <DetailMovie />
+            </ProtectedComponent>
           }
-        />
+        /> */}
       </Routes>
       <FooterPage />
     </div>
