@@ -14,24 +14,43 @@ import "./ListMovies.css";
 
 const DetailMovie = () => {
   const [movie, setMovie] = useState([]);
+  const [videos, setVideos] = useState([]);
 
   const params = useParams();
+  const idMovie = params.idMovie;
 
   useEffect(() => {
-    const fetchDataMovies = async () => {
+    const fetchMovie = async () => {
       try {
-        const responseDariTMDB = await tmdbInstance.get(
-          "/movie/" + params.idMovie
-        );
+        const dataMovie = await tmdbInstance.get("/movie/" + idMovie);
 
-        setMovie(responseDariTMDB.data);
+        setMovie(dataMovie.data);
       } catch (err) {
         console.log(err);
       }
     };
 
-    fetchDataMovies();
-  }, [params.idMovie]);
+    const fetchVideos = async () => {
+      try {
+        const dataVideos = await tmdbInstance.get(
+          "/movie/" + idMovie + "/videos"
+        );
+
+        const resultVideos = dataVideos.data.results.filter(
+          (video) =>
+            video.type === "Trailer" &&
+            video.site === "YouTube" &&
+            video.official === true
+        );
+        setVideos(resultVideos[0]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchMovie();
+    fetchVideos();
+  }, [idMovie]);
 
   return (
     <Card className="boxy">
@@ -65,6 +84,26 @@ const DetailMovie = () => {
           </Typography>
           <Typography variant="body2">{movie.overview}</Typography>
         </CardContent>
+      </Box>
+      <Box
+        style={{
+          minHeight: "50em",
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "10em",
+        }}
+      >
+        <div>
+          <iframe
+            src={"https://www.youtube.com/embed/" + videos.key}
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen="0"
+            title={videos.name}
+            width="853"
+            height="480"
+          />
+        </div>
       </Box>
     </Card>
   );
