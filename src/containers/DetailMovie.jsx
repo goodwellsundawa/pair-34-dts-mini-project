@@ -83,27 +83,26 @@ const DetailMovie = () => {
             Release date: {movie.release_date}
           </Typography>
           <Typography variant="body2">{movie.overview}</Typography>
+          <Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "0.5em",
+            }}
+          >
+            <div>
+              <iframe
+                src={"https://www.youtube.com/embed/" + videos.key}
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen="0"
+                title={videos.name}
+                width="400"
+                height="200"
+              />
+            </div>
+          </Box>
         </CardContent>
-      </Box>
-      <Box
-        style={{
-          minHeight: "50em",
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "10em",
-        }}
-      >
-        <div>
-          <iframe
-            src={"https://www.youtube.com/embed/" + videos.key}
-            frameborder="0"
-            allow="autoplay; encrypted-media"
-            allowfullscreen="0"
-            title={videos.name}
-            width="853"
-            height="480"
-          />
-        </div>
       </Box>
     </Card>
   );
