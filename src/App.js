@@ -9,6 +9,7 @@ import FooterPage from "./containers/FooterPage";
 import LoginPage from "./containers/LoginPage";
 import RegisterPage from "./containers/RegisterPage";
 import DetailMovie from "./containers/DetailMovie";
+import CustomPage from "./containers/CustomPage";
 
 function App() {
   return (
@@ -35,15 +36,7 @@ function App() {
             </ProtectedComponent>
           }
         />
-        {/* <Route path="detail_movie/:idMovie" element={<DetailMovie />} /> */}
-        {/* <Route
-          path="detail_movie/:idMovie"
-          element={
-            <ProtectedComponent>
-              <DetailMovie />
-            </ProtectedComponent>
-          }
-        /> */}
+        <Route path="custom" element={<CustomPage />} />
       </Routes>
       <FooterPage />
     </div>

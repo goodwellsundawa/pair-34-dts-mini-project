@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { baseUrlForImage, getMoviesPopular } from "../apis/tmdb";
+import React from "react";
+import { baseUrlForImage } from "../apis/tmdb";
 import { auth } from "../authentication/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Box, Card, CardMedia, CardContent, Typography } from "@mui/material";
@@ -7,29 +7,20 @@ import { Link } from "react-router-dom";
 
 import "./ListMovies.css";
 
-const HomePage = () => {
-  const [movies, setMovies] = useState([]);
+import { useSelector } from "react-redux";
+
+import { selectMovies } from "../features/movies/sliceMovies.js";
+
+const CustomPage = () => {
   const [user] = useAuthState(auth);
 
-  useEffect(() => {
-    const fetchDataMovies = async () => {
-      try {
-        const responseDariTMDB = await getMoviesPopular();
-
-        setMovies(responseDariTMDB);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchDataMovies();
-  }, []);
+  const movies = useSelector(selectMovies);
 
   return (
     <Box className="boxy">
-      <Typography variant="h5">Top 5 Movie Popular</Typography>
+      <Typography variant="h5">Search Movies</Typography>
 
-      {movies.slice(0, 5).map((movie) => {
+      {movies.map((movie) => {
         return (
           <Card key={movie.id} className="boxy">
             <Box
@@ -43,7 +34,11 @@ const HomePage = () => {
               <CardMedia
                 component="img"
                 sx={{ width: 1 }}
-                image={`${baseUrlForImage}${movie.poster_path}`}
+                image={
+                  movie.poster_path === null
+                    ? "../../broken-1.png"
+                    : `${baseUrlForImage}${movie.poster_path}`
+                }
                 alt={movie.title}
               ></CardMedia>
               <CardContent
@@ -77,4 +72,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default CustomPage;
